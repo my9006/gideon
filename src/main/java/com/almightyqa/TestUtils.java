@@ -15,7 +15,6 @@ public class TestUtils {
 
     public static final Random RANDOM = new Random();
     public static final Faker FAKER = new Faker();
-
     public static final Gson GSON = new Gson();
 
     public static int getRandomInt(int... bound) {
@@ -51,7 +50,7 @@ public class TestUtils {
         return 11 + getRandomBankAccount();
     }
 
-    public static <T extends Enum> T getRandomEnum(Class<T> enumClass) {
+    public static <T extends Enum<T>> T getRandomEnum(Class<T> enumClass) {
         final T[] enumConstants = enumClass.getEnumConstants();
         return Arrays.asList(enumConstants).get(getRandomInt(enumConstants.length));
     }
@@ -83,7 +82,7 @@ public class TestUtils {
     }
 
     public static String generateRandomLetter(final int amount) {
-        StringBuilder sb = new StringBuilder().append("TEST");
+        final StringBuilder sb = new StringBuilder().append("TEST");
         IntStream.range(0, amount - 4).forEach(i -> sb.append((char) (TestUtils.getRandomInt(26) + 'A')));
         return sb.toString();
     }
