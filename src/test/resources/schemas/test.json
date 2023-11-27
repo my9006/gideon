@@ -1,11 +1,20 @@
 {
-
-"$schema": "http://json-schema.org/draft/2020-12/schema",
+  "$schema": "http://json-schema.org/draft/2020-12/schema",
   "type": "object",
+  "minProperties": 2,
+  "exclusiveMin": false,
+  "maxProperties": 5,
+  "exclusiveMax": true,
   "properties": {
     "a": {
-      "type": "number"
+      "type": "string",
+      "enum": ["asd", "qwe", "zxc"]
     }
-  }
-
+  },
+  "patternProperties": {
+    "^my_": {"type": "string"}
+  },
+  "propertyNames": {"pattern": "[a-z]"},
+  "unevaluatedProperties": false,
+  "required": ["a"]
 }

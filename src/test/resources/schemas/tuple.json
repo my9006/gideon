@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft/2020-12/schema",
+  "type": "array",
+  "minItems": 4,
+  "maxItems": 6,
+  "uniqueness": true,
+  "prefixItems": [
+    {
+      "type": "number"
+    },
+    {
+      "type": "string"
+    },
+    {
+      "enum": [
+        "Street",
+        "Avenue"
+      ]
+    },
+    {
+      "enum": [
+        "AM",
+        "US"
+      ]
+    }
+  ],
+  "items": {
+    "type": "array",
+    "contains": {
+      "type": "number"
+    },
+    "minContains": 1,
+    "maxContains": 3
+  }
+}

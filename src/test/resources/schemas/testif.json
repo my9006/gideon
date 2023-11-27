@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "street_address": {
+      "type": "string",
+      "enum": [
+        "Komits",
+        "Repin"
+      ]
+    },
+    "city": {
+      "type": "string",
+      "enum": [
+        "Gyumri",
+        "Yerevan"
+      ]
+    }
+  },
+  "required": [
+    "street_address"
+  ],
+  "if": {
+    "type": "object",
+    "properties": {
+      "street_address": {
+        "const": "Repin"
+      }
+    }
+  },
+  "then": {
+    "type": "object",
+    "properties": {
+      "city": {
+        "const": "Gyumri"
+      }
+    }
+  },
+  "unevaluatedProperties": false
+}
