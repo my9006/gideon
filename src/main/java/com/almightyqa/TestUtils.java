@@ -2,8 +2,7 @@ package com.almightyqa;
 
 import com.github.javafaker.Faker;
 import com.google.gson.Gson;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,46 +16,43 @@ public class TestUtils {
     public static final Faker FAKER = new Faker();
     public static final Gson GSON = new Gson();
 
-    public static int getRandomInt(int... bound) {
+    public static int generateRandomInt(int... bound) {
         return bound.length == 0 ? RANDOM.nextInt() : RANDOM.nextInt(bound[0]);
     }
 
-    public static long getRandomLong(long... bound) {
+    public static long generateRandomLong(final long... bound) {
         return bound.length == 0 ? RANDOM.nextInt() : RANDOM.nextLong(bound[0]);
     }
 
-    public static long getRandomNumberOfGivenSize(int numberOfDigits) {
-        long min = 1;
-        if(numberOfDigits>19){
+    public static long generateRandomNumberOfGivenSize(final int numberOfDigits) {
+        if (numberOfDigits > 19) {
             throw new IllegalArgumentException("Max number for long is 19 digits long");
         }
-        for (int i = 1; i < numberOfDigits; i++) {
-            min *= 10;
-        }
-        return min + getRandomLong(9L * min) - 1;
+        long min = (long) Math.pow(10, numberOfDigits - 1);
+        return min + generateRandomLong(9L * min) - 1;
     }
 
-    public static String getRandomEmail(final String domain) {
+    public static String generateRandomEmail(final String domain) {
         return FAKER.name().firstName() +
-                Math.abs(getRandomInt()) +
+                Math.abs(generateRandomInt()) +
                 "@" + domain + ".com";
     }
 
-    public static String getRandomBankAccount() {
-        return String.format("%08d", getRandomInt(100000000));
+    public static String generateRandomBankAccount() {
+        return String.format("%08d", generateRandomInt(100000000));
     }
 
-    public static String getRandomTaxpayerId() {
-        return 11 + getRandomBankAccount();
+    public static String generateRandomTaxpayerId() {
+        return 11 + generateRandomBankAccount();
     }
 
     public static <T extends Enum<T>> T getRandomEnum(Class<T> enumClass) {
         final T[] enumConstants = enumClass.getEnumConstants();
-        return Arrays.asList(enumConstants).get(getRandomInt(enumConstants.length));
+        return Arrays.asList(enumConstants).get(generateRandomInt(enumConstants.length));
     }
 
     public static <T> T getOneOf(T... items) {
-        final int randomElementIndex = getRandomInt(items.length);
+        final int randomElementIndex = generateRandomInt(items.length);
         return items[randomElementIndex];
     }
 
@@ -73,8 +69,8 @@ public class TestUtils {
         return dataProvider;
     }
 
-    public static String getRandomPhoneNumber() {
-        return String.valueOf(getRandomNumberOfGivenSize(8));
+    public static String generateRandomPhoneNumber() {
+        return String.valueOf(generateRandomNumberOfGivenSize(8));
     }
 
     public static String uppercaseLettersOnly(final String text) {
@@ -83,7 +79,7 @@ public class TestUtils {
 
     public static String generateRandomLetter(final int amount) {
         final StringBuilder sb = new StringBuilder().append("TEST");
-        IntStream.range(0, amount - 4).forEach(i -> sb.append((char) (TestUtils.getRandomInt(26) + 'A')));
+        IntStream.range(0, amount - 4).forEach(i -> sb.append((char) (TestUtils.generateRandomInt(26) + 'A')));
         return sb.toString();
     }
 
@@ -100,16 +96,13 @@ public class TestUtils {
     }
 
     public static <T> T getRandomElementFromList(final List<T> list) {
-        return list.get(getRandomInt(list.size()));
+        return list.get(generateRandomInt(list.size()));
     }
 
 
     public static List<String> getInvalidEmails(final String validEmail) {
-
         return List.of(validEmail.replace("@", ""), validEmail.replace(".", ""),
                 validEmail.substring(0, validEmail.indexOf(".")), validEmail.replaceAll("[^@\\.]+(\\.)", ""));
-
-
     }
 
     public static <T, R> List<R> toList(final Iterable<T> iterable, final Class<R> type) {
