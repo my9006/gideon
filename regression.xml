@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Dalias book" data-provider-thread-count="20">
+    <test name="Regression" thread-count="5" parallel="classes">
+        <classes>
+            <class name="DeleteMe"/>
+        </classes>
+    </test>
+
+</suite>
