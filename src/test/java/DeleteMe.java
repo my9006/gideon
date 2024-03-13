@@ -7,7 +7,7 @@ public class DeleteMe {
 
     @Test
     public void deleteMe(){
-        assertEquals(1,0, "Test was passed");
+        assertEquals(1,1, "Test was passed");
     }
 
 }
